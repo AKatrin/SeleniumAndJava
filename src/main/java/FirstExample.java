@@ -5,6 +5,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.opera.OperaDriver;
+import org.openqa.selenium.opera.OperaOptions;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -70,7 +71,10 @@ public class FirstExample {
                 break;
             case 3:
                 System.setProperty("webdriver.opera.driver", "C:\\dev\\tools\\operaTools\\operadriver.exe");
-                driver1 = new OperaDriver();
+                OperaOptions options = new OperaOptions();
+                //You need an OperaOptions instance, a call to setBinary() and then use that instance as an argument in your OperaDriver constructor. See this link for proof:
+                options.setBinary("C:\\Users\\areliez.vargas\\AppData\\Local\\Programs\\Opera\\56.0.3051.104\\opera.exe");
+                driver1 = new OperaDriver(options);
                 break;
         }
         return driver1;
