@@ -6,6 +6,8 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.opera.OperaDriver;
 import org.openqa.selenium.opera.OperaOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -13,7 +15,6 @@ import java.util.concurrent.TimeUnit;
 public class FirstExample {
 
     public static void main(String[] args) throws InterruptedException {
-
         WebDriver driverFirefox = getDriver(0);
         openImage(driverFirefox);
         closeDriver(driverFirefox);
@@ -21,7 +22,6 @@ public class FirstExample {
         WebDriver driverChrome = getDriver(1);
         openImage(driverChrome);
         closeDriver(driverChrome);
-
         WebDriver driverEdge = getDriver(2);
         openImage(driverEdge);
         closeDriver(driverEdge);
@@ -37,12 +37,34 @@ public class FirstExample {
         driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
         driver.manage().timeouts().setScriptTimeout(6, TimeUnit.SECONDS);
 
-        driver.findElement(By.id("lst-ib")).click();
-        driver.findElement(By.id("lst-ib")).sendKeys("Naruto");
+        driver.findElement(By.name("q")).click();
+        driver.findElement(By.name("q")).sendKeys("Naruto");
 
-        driver.findElement(By.name("btnK")).click();
+        driver.findElement(By.id("hplogo")).click();
+
+
+
+        WebElement button = driver.findElement(By.xpath("//input[@name='btnK' and ancestor::div[@class='FPdoLc VlcLAe']]"));
+
+        button.click();
+
+        WebDriverWait wait = new WebDriverWait(driver, 20);
+        wait.until(ExpectedConditions.titleIs("Naruto - Buscar con Google"));
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         driver.findElement(By.linkText("Imágenes")).click();
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         List<WebElement> imagenes = driver.findElements(By.tagName("img"));
         imagenes.get(2).click();
 
